@@ -597,7 +597,8 @@ class VoiceBpeTokenizer:
         self.char_limits = {
             "en": 250,
             "de": 253,
-            "fr": 273,
+            "de": 253,
+            "et": 273,
             "es": 239,
             "it": 213,
             "pt": 203,
