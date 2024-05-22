@@ -81,6 +81,7 @@ class XttsConfig(BaseTTSConfig):
             "pl",
             "tr",
             "ru",
+            "et",
             "nl",
             "cs",
             "ar",

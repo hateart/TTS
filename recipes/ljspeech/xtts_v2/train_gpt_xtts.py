@@ -8,8 +8,8 @@ from TTS.tts.layers.xtts.trainer.gpt_trainer import GPTArgs, GPTTrainer, GPTTrai
 from TTS.utils.manage import ModelManager
 
 # Logging parameters
-RUN_NAME = "GPT_XTTS_v2.0_LJSpeech_FT"
-PROJECT_NAME = "XTTS_trainer"
+RUN_NAME = "GPT_XTTS_v2.0_Estonian_FT01"
+PROJECT_NAME = "XTTS_estonian_01"
 DASHBOARD_LOGGER = "tensorboard"
 LOGGER_URI = None
 
@@ -26,10 +26,10 @@ GRAD_ACUMM_STEPS = 84  # set here the grad accumulation steps
 # Define here the dataset that you want to use for the fine-tuning on.
 config_dataset = BaseDatasetConfig(
     formatter="ljspeech",
-    dataset_name="ljspeech",
-    path="/raid/datasets/LJSpeech-1.1_24khz/",
-    meta_file_train="/raid/datasets/LJSpeech-1.1_24khz/metadata.csv",
-    language="en",
+    dataset_name="estonian",
+    path="/home/jupyter/et/",
+    meta_file_train="/home/jupyter/et/metadata.csv",#/home/jupyter/german/metadata3.csv
+    language="et",
 )
 
 # Add here the configs of the datasets
@@ -72,7 +72,9 @@ if not os.path.isfile(TOKENIZER_FILE) or not os.path.isfile(XTTS_CHECKPOINT):
 
 # Training sentences generations
 SPEAKER_REFERENCE = [
-    "./tests/data/ljspeech/wavs/LJ001-0002.wav"  # speaker reference to be used in training test sentences
+    #"/home/jupyter/german/wavs/balladen_01_f000019.wav"  # speaker reference to be used in training test sentences
+    "/home/jupyter/et/wavs/common_voice_et_22199800.wav"
+    
 ]
 LANGUAGE = config_dataset.language
 
@@ -132,12 +134,12 @@ def main():
         lr_scheduler_params={"milestones": [50000 * 18, 150000 * 18, 300000 * 18], "gamma": 0.5, "last_epoch": -1},
         test_sentences=[
             {
-                "text": "It took me quite a long time to develop a voice, and now that I have it I'm not going to be silent.",
+                "text": "On oluline piisavalt vett juua.",
                 "speaker_wav": SPEAKER_REFERENCE,
                 "language": LANGUAGE,
             },
             {
-                "text": "This cake is great. It's so delicious and moist.",
+                "text": "Ma armastan jalutada pargis.",
                 "speaker_wav": SPEAKER_REFERENCE,
                 "language": LANGUAGE,
             },

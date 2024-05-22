@@ -16,7 +16,7 @@ from spacy.lang.zh import Chinese
 from tokenizers import Tokenizer
 
 from TTS.tts.layers.xtts.zh_num2words import TextNorm as zh_num2words
-
+from tts_preprocess_et.convert import convert_sentence
 
 def get_spacy_lang(lang):
     if lang == "zh":
@@ -638,6 +638,10 @@ class VoiceBpeTokenizer:
             txt = japanese_cleaners(txt, self.katsu)
         elif lang == "hi":
             # @manmay will implement this
+            txt = basic_cleaners(txt)
+        elif lang == "et":
+            txt = lowercase(txt)
+            txt = convert_sentence(txt) #estonian
             txt = basic_cleaners(txt)
         else:
             raise NotImplementedError(f"Language '{lang}' is not supported.")
